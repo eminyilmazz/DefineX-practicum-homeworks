@@ -1,4 +1,4 @@
-##Output:
+## Output:
 
 ```
 0 [main] DEBUG com.eminyilmazz.househw.model.House  - Creating a house with type: APARTMENT
@@ -19,9 +19,9 @@
 64 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total square size of the mansions: 824
 64 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total square size of the summer houses: 520
 65 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The average square size of the houses: 180.89
-68 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total count of the house with 1 living room and 2 rooms 3
-68 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total count of the house with 1 living room and 3 rooms 2
-68 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total count of the house with 2 living rooms and 3 rooms 1
-68 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total count of the house with 2 living room and 5 rooms 2
-68 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total count of the house with 3 living room and 6 rooms 1
+68 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total count of the house with 1 living room and 2 rooms: 3
+68 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total count of the house with 1 living room and 3 rooms: 2
+68 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total count of the house with 2 living rooms and 3 rooms: 1
+68 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total count of the house with 2 living rooms and 5 rooms: 2
+68 [main] DEBUG com.eminyilmazz.househw.service.HousingExecutor  - The total count of the house with 3 living rooms and 6 rooms: 1
 ```
