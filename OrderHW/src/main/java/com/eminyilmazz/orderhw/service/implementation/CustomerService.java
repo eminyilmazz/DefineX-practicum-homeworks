@@ -8,17 +8,21 @@ import com.eminyilmazz.orderhw.util.mapper.CustomerMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static com.eminyilmazz.orderhw.util.mapper.CustomerMapper.toEntity;
 
 @Service
 public class CustomerService implements ICustomerService {
     @Autowired
     CustomerRepository customerRepository;
     private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
-    public List<CustomerDto> getAllCustomer() {
+    public List<CustomerDto> getAllCustomers() {
         logger.trace("Getting all customers");
         return customerRepository.findAll().stream().map(CustomerMapper::toDto).collect(Collectors.toList());
     }
@@ -37,5 +41,13 @@ public class CustomerService implements ICustomerService {
         return customerRepository.findAll().stream()
                 .filter(i -> i.getFullName().toLowerCase().contains("c"))
                 .map(CustomerMapper::toDto).collect(Collectors.toList());
+    }
+
+    @Override
+    public ResponseEntity<?> addCustomer(CustomerDto customerDto) {
+        Customer customer = toEntity(customerDto);
+        Optional<Customer> savedCustomer = Optional.of(customerRepository.saveAndFlush(customer));
+        if (!savedCustomer.isPresent()) return ResponseEntity.badRequest().body("Failed saving customer");
+        return ResponseEntity.ok(savedCustomer.get());
     }
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Table(name = "customer")
 @Entity
@@ -21,7 +21,7 @@ public class Customer {
     @Column(name = "full_name")
     private String fullName;
 
-    @Column(name = "created_date")
+    @Column(name = "created_date", columnDefinition = "TIMESTAMP(0) WITH TIME ZONE DEFAULT NOW()")
     @CreatedDate
-    private LocalDateTime createdDate;
+    private ZonedDateTime createdDate;
 }
