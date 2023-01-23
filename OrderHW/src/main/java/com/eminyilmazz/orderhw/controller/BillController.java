@@ -19,6 +19,11 @@ public class BillController {
     @Autowired
     IBillService billService;
 
+    @GetMapping
+    public ResponseEntity<List<BillDto>> getAll() {
+        return ResponseEntity.ok(billService.getAll());
+    }
+
     @GetMapping(value = "/getJune")
     public ResponseEntity<List<BillDto>> getBillsOfCustomerCreatedInJune() {
         logger.debug("/bill/api/getJune request received");
