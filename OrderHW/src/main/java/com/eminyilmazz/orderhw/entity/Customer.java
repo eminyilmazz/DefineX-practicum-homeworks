@@ -4,7 +4,9 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
+import java.util.List;
 
 @Table(name = "customer")
 @Entity
@@ -13,15 +15,17 @@ import java.time.ZonedDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Customer {
+public class Customer implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", nullable = false)
     private Long id;
     @Column(name = "full_name")
     private String fullName;
-
     @Column(name = "created_date", columnDefinition = "TIMESTAMP(0) WITH TIME ZONE DEFAULT NOW()")
     @CreatedDate
     private ZonedDateTime createdDate;
+    @Transient
+    @OneToMany
+    private List<Bill> bills;
 }

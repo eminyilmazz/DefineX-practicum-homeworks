@@ -1,23 +1,19 @@
 
-h
-8src/main/java/com/eminyilmazz/househw/model/Mansion.java,0\0\006bf23d10f48d59ba367c404004b28751b7f28f
-l
-<src/main/java/com/eminyilmazz/househw/model/SummerHouse.java,d\a\dabbd19319ed4a0e5c93b287358c2bec3cd92ab2
-r
-Bsrc/main/java/com/eminyilmazz/househw/service/HousingExecutor.java,8\e\8efb337cb9bfcc25fef929cafdaeda9b7a0ca075
-l
-<src/main/java/com/eminyilmazz/househw/model/HousingType.java,1\e\1e2f5f161ef90c53356178c024e3a27112afd4a6
-b
-2src/main/java/com/eminyilmazz/househw/HouseHW.java,c\a\cae63138549de73f3f5b5b76d745e8ca8c66b6a8
-j
-:src/main/java/com/eminyilmazz/househw/model/Apartment.java,4\1\4199a07a4a368b0fc968ad68ac86b3bdc3eeb072
 7
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
-9
-	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+b
+2src/main/java/com/eminyilmazz/househw/HouseHW.java,c\a\cae63138549de73f3f5b5b76d745e8ca8c66b6a8
 q
 Asrc/main/java/com/eminyilmazz/househw/service/HousingService.java,b\a\ba7f7390553c50ba3aaf2e1cebd7c3141cb0fe03
-f
-6src/main/java/com/eminyilmazz/househw/model/House.java,c\d\cd6cd164116b3c463a5fa89aab1b987d5fdfb245
+S
+#src/main/resources/log4j.properties,7\5\755950bb690295904a49d36e60958901c54013b8
+9
+	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
+r
+Bsrc/main/java/com/eminyilmazz/househw/service/HousingExecutor.java,8\e\8efb337cb9bfcc25fef929cafdaeda9b7a0ca075
+j
+:src/main/java/com/eminyilmazz/househw/model/Apartment.java,4\1\4199a07a4a368b0fc968ad68ac86b3bdc3eeb072
 n
 >src/main/java/com/eminyilmazz/househw/utility/HousingUtil.java,5\3\53f3af022f7e5633ddc61257980a322d0893dba5
+l
+<src/main/java/com/eminyilmazz/househw/model/HousingType.java,1\e\1e2f5f161ef90c53356178c024e3a27112afd4a6
