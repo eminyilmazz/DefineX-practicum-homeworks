@@ -75,4 +75,15 @@ public class BillService implements IBillService {
         }
         return billList;
     }
+
+    @Override
+    public String getAverageAbove(Long amount) {
+        List<Bill> billList = billRepository.findBillsByCostGreaterThanEqual(amount);
+        double average = billList.stream()
+                .mapToLong(Bill::getCost)
+                .average()
+                .orElse(0.0);
+        logger.info("Average value of bills: {}", average);
+        return formatCurrency(Long.valueOf(String.valueOf(average)));
+    }
 }

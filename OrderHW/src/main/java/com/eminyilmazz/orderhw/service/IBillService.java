@@ -10,4 +10,5 @@ public interface IBillService {
     List<BillDto> getBillsOfCustomerCreatedInJune();
     String getTotalCountOfBillsByCustomerCreatedInJune();
     List<BillDto> getAllBillsAbove(Long amount);
+    String getAverageAbove(Long amount);
 }

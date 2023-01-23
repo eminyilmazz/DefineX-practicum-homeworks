@@ -43,4 +43,10 @@ public class BillController {
         Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 1500.0) * 100));
         return ResponseEntity.ok(billService.getAllBillsAbove(longAmount));
     }
+
+    @GetMapping(value = "/averageAbove")
+    public ResponseEntity<String> getAverageAbove(@RequestParam(required = false) Optional<Double> amount) {
+        Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 1500.0) * 100));
+        return ResponseEntity.ok(billService.getAverageAbove(longAmount));
+    }
 }
