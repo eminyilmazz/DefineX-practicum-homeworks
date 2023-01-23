@@ -19,7 +19,7 @@ public class BillController {
     @Autowired
     IBillService billService;
 
-    @GetMapping
+    @GetMapping(value = "/all")
     public ResponseEntity<List<BillDto>> getAll() {
         return ResponseEntity.ok(billService.getAll());
     }
