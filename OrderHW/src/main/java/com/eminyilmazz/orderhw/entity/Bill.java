@@ -27,7 +27,7 @@ public class Bill implements Serializable {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "customer_id")
     private Customer customer;
-    @OneToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "company_id")
     private Company company;
     @Column(name = "created_date", columnDefinition = "TIMESTAMP(0) WITH TIME ZONE DEFAULT NOW()")
