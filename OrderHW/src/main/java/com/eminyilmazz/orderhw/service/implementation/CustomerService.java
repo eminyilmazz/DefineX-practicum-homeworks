@@ -28,11 +28,9 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public List<CustomerDto> getAllCustomersCreatedInJune() {
+    public List<Customer> getAllCustomersCreatedInJune() {
         logger.trace("Getting customers created in June");
-        return customerRepository.findAll().stream()
-                .filter(i -> i.getCreatedDate().getMonthValue() == 6)
-                .map(CustomerMapper::toDto).collect(Collectors.toList());
+        return customerRepository.getCustomersCreatedInJune();
     }
 
     @Override

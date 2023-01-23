@@ -26,16 +26,13 @@ public class CustomerController {
 
     @PostMapping(value = "/add")
     public ResponseEntity<?> addCustomer(@RequestBody CustomerDto customerDto) {
+        logger.debug("/customer/api/add request received");
         return customerService.addCustomer(customerDto);
     }
 
     @GetMapping("/getC")
     public ResponseEntity<List<CustomerDto>> getCustomersContainingC() {
+        logger.debug("/customer/api/getC request received");
         return ResponseEntity.ok(customerService.getAllCustomersNameContainingC());
-    }
-
-    @GetMapping(value = "/getJune")
-    public ResponseEntity<List<CustomerDto>> getCustomersCreatedInJune() {
-        return ResponseEntity.ok(customerService.getAllCustomersCreatedInJune());
     }
 }
