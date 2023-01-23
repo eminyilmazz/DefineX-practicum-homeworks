@@ -1,7 +1,9 @@
 package com.eminyilmazz.orderhw.service.implementation;
 
+import com.eminyilmazz.orderhw.entity.Bill;
 import com.eminyilmazz.orderhw.entity.Customer;
 import com.eminyilmazz.orderhw.entity.dto.CustomerDto;
+import com.eminyilmazz.orderhw.repository.BillRepository;
 import com.eminyilmazz.orderhw.repository.CustomerRepository;
 import com.eminyilmazz.orderhw.service.ICustomerService;
 import com.eminyilmazz.orderhw.util.mapper.CustomerMapper;
@@ -13,16 +15,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static com.eminyilmazz.orderhw.util.mapper.CustomerMapper.toDto;
 import static com.eminyilmazz.orderhw.util.mapper.CustomerMapper.toEntity;
 
 @Service
 public class CustomerService implements ICustomerService {
     @Autowired
     CustomerRepository customerRepository;
+    @Autowired
+    BillRepository billRepository;
     private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
     @Autowired
     ObjectMapper objectMapper;
@@ -59,5 +65,20 @@ public class CustomerService implements ICustomerService {
         Optional<Customer> savedCustomer = Optional.of(customerRepository.saveAndFlush(customer));
         if (!savedCustomer.isPresent()) return ResponseEntity.badRequest().body("Failed saving customer");
         return ResponseEntity.ok(savedCustomer.get());
+    }
+
+    @Override
+    public List<String> getCustomerNamesWithBelow(Long amount) {
+        List<String> nameList = billRepository.findBillsByCostLessThanEqual(amount)
+                .stream()
+                .map(b -> toDto(b.getCustomer()))
+                .map(CustomerDto::getFullName)
+                .collect(Collectors.toList());
+        try {
+            logger.info("Customer names who have bills where the cost is below {}: {}", amount, objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(nameList));
+        } catch (JsonProcessingException e) {
+            logger.error("Error trying to write the output in CustomerService.getCustomerNamesWithBelow({})", amount);
+        }
+        return nameList;
     }
 }

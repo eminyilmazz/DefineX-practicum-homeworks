@@ -14,4 +14,6 @@ public interface ICustomerService {
     List<CustomerDto> getAllCustomersNameContainingC();
 
     ResponseEntity<?> addCustomer(CustomerDto customerDto);
+
+    List<String> getCustomerNamesWithBelow(Long amount);
 }

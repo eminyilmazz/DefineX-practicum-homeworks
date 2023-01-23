@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/customer/api")
@@ -30,9 +31,15 @@ public class CustomerController {
         return customerService.addCustomer(customerDto);
     }
 
-    @GetMapping("/getC")
+    @GetMapping(value = "/getC")
     public ResponseEntity<List<CustomerDto>> getCustomersContainingC() {
         logger.debug("/customer/api/getC request received");
         return ResponseEntity.ok(customerService.getAllCustomersNameContainingC());
+    }
+
+    @GetMapping(value = "/getWithBelow")
+    public ResponseEntity<List<String>> getCustomerNamesWithBelow(@RequestParam(required = false) Optional<Double> amount) {
+        Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 500.0) * 100));
+        return ResponseEntity.ok(customerService.getCustomerNamesWithBelow(longAmount));
     }
 }
