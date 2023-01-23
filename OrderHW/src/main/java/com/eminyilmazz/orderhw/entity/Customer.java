@@ -5,6 +5,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -22,9 +23,9 @@ public class Customer implements Serializable {
     private Long id;
     @Column(name = "full_name")
     private String fullName;
-    @Column(name = "created_date", columnDefinition = "TIMESTAMP(0) WITH TIME ZONE DEFAULT NOW()")
+    @Column(name = "created_date", columnDefinition = "TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW()")
     @CreatedDate
-    private ZonedDateTime createdDate;
+    private LocalDateTime createdDate;
     @Transient
     @OneToMany
     private List<Bill> bills;

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.io.Serializable;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "bills")
@@ -30,9 +30,9 @@ public class Bill implements Serializable {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "company_id")
     private Company company;
-    @Column(name = "created_date", columnDefinition = "TIMESTAMP(0) WITH TIME ZONE DEFAULT NOW()")
+    @Column(name = "created_date", columnDefinition = "TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT NOW()")
     @CreatedDate
-    private ZonedDateTime createdDate;
+    private LocalDateTime createdDate;
 
 
 }
