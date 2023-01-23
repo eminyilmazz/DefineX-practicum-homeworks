@@ -14,4 +14,5 @@ public class BillDto {
     private String customerName;
     private String companyName;
     private String companyIndustry;
+    private String createdDate;
 }

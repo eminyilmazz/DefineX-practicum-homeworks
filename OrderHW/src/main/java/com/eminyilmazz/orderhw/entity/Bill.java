@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.io.Serializable;
+import java.time.ZonedDateTime;
 
 @Entity
 @Table(name = "bills")
@@ -25,10 +27,12 @@ public class Bill implements Serializable {
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "customer_id")
     private Customer customer;
-
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "company_id")
     private Company company;
+    @Column(name = "created_date", columnDefinition = "TIMESTAMP(0) WITH TIME ZONE DEFAULT NOW()")
+    @CreatedDate
+    private ZonedDateTime createdDate;
 
 
 }
