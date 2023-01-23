@@ -5,6 +5,8 @@ import com.eminyilmazz.orderhw.entity.dto.CustomerDto;
 import com.eminyilmazz.orderhw.repository.CustomerRepository;
 import com.eminyilmazz.orderhw.service.ICustomerService;
 import com.eminyilmazz.orderhw.util.mapper.CustomerMapper;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +24,12 @@ public class CustomerService implements ICustomerService {
     @Autowired
     CustomerRepository customerRepository;
     private static final Logger logger = LoggerFactory.getLogger(CustomerService.class);
+    @Autowired
+    ObjectMapper objectMapper;
+
     public List<CustomerDto> getAllCustomers() {
         logger.trace("Getting all customers");
+
         return customerRepository.findAll().stream().map(CustomerMapper::toDto).collect(Collectors.toList());
     }
 
@@ -36,9 +42,15 @@ public class CustomerService implements ICustomerService {
     @Override
     public List<CustomerDto> getAllCustomersNameContainingC() {
         logger.trace("Getting customers that contains 'c'/'C' in their name");
-        return customerRepository.findAll().stream()
+        List<CustomerDto> customerList = customerRepository.findAll().stream()
                 .filter(i -> i.getFullName().toLowerCase().contains("c"))
                 .map(CustomerMapper::toDto).collect(Collectors.toList());
+        try {
+            logger.info("Customers containing 'C' in their name: {}", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(customerList));
+        } catch (JsonProcessingException e) {
+            logger.error("Error trying to write the output in CustomerService.getAllCustomersNameContainingC()");
+        }
+        return customerList;
     }
 
     @Override
