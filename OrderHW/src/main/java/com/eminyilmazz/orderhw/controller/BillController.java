@@ -24,4 +24,10 @@ public class BillController {
         logger.debug("/bill/api/getJune request received");
         return ResponseEntity.ok(billService.getBillsOfCustomerCreatedInJune());
     }
+
+    @GetMapping(value = "/getJuneCost")
+    public ResponseEntity<String> getTotalCountOfBillsByCustomerCreatedInJune() {
+        logger.debug("/bill/api/getJune request received");
+        return ResponseEntity.ok(billService.getTotalCountOfBillsByCustomerCreatedInJune());
+    }
 }

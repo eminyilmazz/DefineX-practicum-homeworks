@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IBillService {
     List<BillDto> getBillsOfCustomerCreatedInJune();
+    String getTotalCountOfBillsByCustomerCreatedInJune();
 }
