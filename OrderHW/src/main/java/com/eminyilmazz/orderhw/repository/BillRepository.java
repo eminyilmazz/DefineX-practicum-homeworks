@@ -9,5 +9,6 @@ import java.util.List;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
-    List<Bill> getBillsByCustomer(Customer customer);
+    List<Bill> findBillsByCustomer(Customer customer);
+    List<Bill> findBillsByCostGreaterThanEqual(Long cost);
 }

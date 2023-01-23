@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/bill/api")
@@ -34,5 +36,11 @@ public class BillController {
     public ResponseEntity<String> getTotalCountOfBillsByCustomerCreatedInJune() {
         logger.debug("/bill/api/getJune request received");
         return ResponseEntity.ok(billService.getTotalCountOfBillsByCustomerCreatedInJune());
+    }
+
+    @GetMapping(value = "/above")
+    public ResponseEntity<List<BillDto>> getAllBillsAbove(@RequestParam(required = false) Optional<Double> amount) {
+        Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 1500.0) * 100));
+        return ResponseEntity.ok(billService.getAllBillsAbove(longAmount));
     }
 }

@@ -1,6 +1,5 @@
 package com.eminyilmazz.orderhw.service.implementation;
 
-import com.eminyilmazz.orderhw.controller.CustomerController;
 import com.eminyilmazz.orderhw.entity.Bill;
 import com.eminyilmazz.orderhw.entity.Customer;
 import com.eminyilmazz.orderhw.entity.dto.BillDto;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -46,7 +44,7 @@ public class BillService implements IBillService {
     public List<BillDto> getBillsOfCustomerCreatedInJune() {
         List<Customer> customerList = customerService.getAllCustomersCreatedInJune();
         List<BillDto> billList = customerList.stream()
-                .flatMap(c -> billRepository.getBillsByCustomer(c).stream())
+                .flatMap(c -> billRepository.findBillsByCustomer(c).stream())
                 .map(BillMapper::toDto)
                 .collect(Collectors.toList());
         try {
@@ -61,9 +59,20 @@ public class BillService implements IBillService {
     public String getTotalCountOfBillsByCustomerCreatedInJune() {
         List<Customer> customerList = customerService.getAllCustomersCreatedInJune();
         long total = customerList.stream()
-                .flatMapToLong(c -> billRepository.getBillsByCustomer(c).stream().mapToLong(Bill::getCost))
+                .flatMapToLong(c -> billRepository.findBillsByCustomer(c).stream().mapToLong(Bill::getCost))
                 .sum();
         logger.info("Total value of bills of customers created in June: {}", total);
         return formatCurrency(total);
+    }
+
+    @Override
+    public List<BillDto> getAllBillsAbove(Long amount) {
+        List<BillDto> billList = billRepository.findBillsByCostGreaterThanEqual(amount).stream().map(BillMapper::toDto).collect(Collectors.toList());
+        try {
+            logger.info("All bills where the cost is above {}: {}", amount, objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(billList));
+        } catch (JsonProcessingException e) {
+            logger.error("Error trying to write the output in BillService.getAllBillsAbove({})", amount);
+        }
+        return billList;
     }
 }

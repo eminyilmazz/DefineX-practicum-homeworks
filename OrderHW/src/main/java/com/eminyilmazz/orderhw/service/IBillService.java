@@ -9,4 +9,5 @@ public interface IBillService {
     List<BillDto> getAll();
     List<BillDto> getBillsOfCustomerCreatedInJune();
     String getTotalCountOfBillsByCustomerCreatedInJune();
+    List<BillDto> getAllBillsAbove(Long amount);
 }
