@@ -3,6 +3,7 @@ package com.eminyilmazz.orderhw.util.mapper;
 import com.eminyilmazz.orderhw.entity.Customer;
 import com.eminyilmazz.orderhw.entity.dto.CustomerDto;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -21,7 +22,7 @@ public class CustomerMapper {
 
     public static Customer toEntity(CustomerDto customerDto) {
         return Customer.builder()
-                .createdDate(ZonedDateTime.now())
+                .createdDate(LocalDateTime.now())
                 .fullName(customerDto.getFullName())
                 .build();
     }

@@ -35,8 +35,13 @@ public class CustomerService implements ICustomerService {
 
     public List<CustomerDto> getAllCustomers() {
         logger.trace("Getting all customers");
-
-        return customerRepository.findAll().stream().map(CustomerMapper::toDto).collect(Collectors.toList());
+        List<CustomerDto> customerList = customerRepository.findAll().stream().map(CustomerMapper::toDto).collect(Collectors.toList());
+        try {
+            logger.info("All customers: {}", objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(customerList));
+        } catch (JsonProcessingException e) {
+            logger.error("Error trying to write the output in CustomerService.getAllCustomersNameContainingC()");
+        }
+        return customerList;
     }
 
     @Override

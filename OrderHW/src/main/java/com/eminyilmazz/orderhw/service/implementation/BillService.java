@@ -3,6 +3,7 @@ package com.eminyilmazz.orderhw.service.implementation;
 import com.eminyilmazz.orderhw.entity.Bill;
 import com.eminyilmazz.orderhw.entity.Customer;
 import com.eminyilmazz.orderhw.entity.dto.BillDto;
+import com.eminyilmazz.orderhw.enums.Industry;
 import com.eminyilmazz.orderhw.repository.BillRepository;
 import com.eminyilmazz.orderhw.service.IBillService;
 import com.eminyilmazz.orderhw.service.ICustomerService;
@@ -85,5 +86,16 @@ public class BillService implements IBillService {
                 .orElse(0.0);
         logger.info("Average value of bills: {}", average);
         return formatCurrency(Long.valueOf(String.valueOf(average)));
+    }
+
+    @Override
+    public List<Industry> getIndustriesBelow(Long amount) {
+        List<Industry> industries = billRepository.findCompanyIndustryWhereCostLessThanEqual(amount);
+        try {
+            logger.info("All industries that there is at least one bill with cost less than {}: {}", amount, objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(industries));
+        } catch (JsonProcessingException e) {
+            logger.error("Error trying to write the output in BillService.getIndustriesBelow({})", amount);
+        }
+        return industries;
     }
 }

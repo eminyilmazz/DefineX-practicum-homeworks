@@ -1,6 +1,7 @@
 package com.eminyilmazz.orderhw.controller;
 
 import com.eminyilmazz.orderhw.entity.dto.BillDto;
+import com.eminyilmazz.orderhw.enums.Industry;
 import com.eminyilmazz.orderhw.service.IBillService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,5 +49,11 @@ public class BillController {
     public ResponseEntity<String> getAverageAbove(@RequestParam(required = false) Optional<Double> amount) {
         Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 1500.0) * 100));
         return ResponseEntity.ok(billService.getAverageAbove(longAmount));
+    }
+
+    @GetMapping(value = "/getIndustriesBelow")
+    public ResponseEntity<List<Industry>> getIndustriesBelow(@RequestParam(required = false) Optional<Double> amount) {
+        Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 750.0) * 100));
+        return ResponseEntity.ok(billService.getIndustriesBelow(longAmount));
     }
 }
