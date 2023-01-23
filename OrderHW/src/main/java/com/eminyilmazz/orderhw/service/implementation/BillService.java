@@ -23,7 +23,7 @@ import static com.eminyilmazz.orderhw.util.UtilityService.formatCurrency;
 
 @Service
 public class BillService implements IBillService {
-    private static final Logger logger = LoggerFactory.getLogger(CustomerController.class);
+    private static final Logger logger = LoggerFactory.getLogger(BillService.class);
     @Autowired
     BillRepository billRepository;
     @Autowired
