@@ -81,7 +81,7 @@ public class BillService implements IBillService {
     public List<BillDto> getAllBillsAbove(Long amount) {
         List<BillDto> billList = billRepository.findBillsByCostGreaterThanEqual(amount).stream().map(BillMapper::toDto).collect(Collectors.toList());
         try {
-            logger.info("All bills where the cost is above {}: {}", amount, objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(billList));
+            logger.info("All bills where the cost is above {}: {}", formatCurrency(amount), objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(billList));
         } catch (JsonProcessingException e) {
             logger.error("Error trying to write the output in BillService.getAllBillsAbove({})", amount);
         }
@@ -103,7 +103,7 @@ public class BillService implements IBillService {
     public Set<Industry> getIndustriesBelow(Long amount) {
         Set<Industry> industries = billRepository.findCompanyIndustryWhereCostLessThanEqual(amount);
         try {
-            logger.info("All industries that there is at least one bill with cost less than {}: {}", amount, objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(industries));
+            logger.info("All industries whose average bill was below {} in June: {}", formatCurrency(amount), objectMapper.writeValueAsString(industries));
         } catch (JsonProcessingException e) {
             logger.error("Error trying to write the output in BillService.getIndustriesBelow({})", amount);
         }

@@ -19,6 +19,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static com.eminyilmazz.orderhw.util.UtilityService.formatCurrency;
 import static com.eminyilmazz.orderhw.util.mapper.CustomerMapper.toEntity;
 
 @Service
@@ -74,7 +75,7 @@ public class CustomerService implements ICustomerService {
     public Set<String> getCustomerNamesWithBelow(Long amount) {
         Set<String> nameList = billRepository.findBillsByCostLessThanEqual(amount);
         try {
-            logger.info("Customer names who have bills where the cost is below {}: {}", amount, objectMapper.writeValueAsString(nameList));
+            logger.info("Customer names who have bills where the cost is below {}: {}", formatCurrency(amount), objectMapper.writeValueAsString(nameList));
         } catch (JsonProcessingException e) {
             logger.error("Error trying to write the output in CustomerService.getCustomerNamesWithBelow({})", amount);
         }
