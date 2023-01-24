@@ -1,9 +1,9 @@
 ## Output:
-```json
+```text
 Add a customer:
 2023-01-25T00:14:21.294+03:00 DEBUG 23912 --- [nio-8080-exec-2] c.e.o.controller.CustomerController      : /customer/api/add request received
 ```
-```json
+```text
 Get all customers:
 2023-01-25T00:14:27.151+03:00 DEBUG 23912 --- [nio-8080-exec-3] c.e.o.controller.CustomerController      : /customer/api/all request received
 2023-01-25T00:14:27.152+03:00 TRACE 23912 --- [nio-8080-exec-3] c.e.o.s.implementation.CustomerService   : Getting all customers
@@ -49,17 +49,17 @@ Get all customers:
 "createdDate" : "2023-01-25 00:14:21"
 } ]
 ```
-```json
+```text
 Customer names who have bills where the cost is below 500:
 2023-01-25T00:14:43.733+03:00  INFO 23912 --- [nio-8080-exec-5] c.e.o.s.implementation.CustomerService   : Customer names who have bills where the cost is below 50000: ["Lamar Levy","Finn Moreno","Scarlet Merrill","Jameson Graves"]
 ```        
-```json
+```text
 Create a new bill by order:
 2023-01-25T00:14:53.060+03:00 DEBUG 23912 --- [nio-8080-exec-8] c.e.orderhw.controller.BillController    : /bill/api/order request received
 2023-01-25T00:14:53.061+03:00 TRACE 23912 --- [nio-8080-exec-8] c.e.o.s.implementation.BillService       : Creating bill for order: {"cost":1578.0,"customerId":"252","companyId":"103"}
 2023-01-25T00:14:53.085+03:00 DEBUG 23912 --- [nio-8080-exec-8] c.e.o.s.implementation.BillService       : Bill saved to the database: {"id":1211,"cost":157800,"customer":{"id":252,"fullName":"emin c testing","createdDate":"2023-01-25T00:14:21","bills":null},"company":{"id":103,"industry":"FASHION","name":"Vel Quam Dignissim Corporation"},"createdDate":"2023-01-25T00:14:53.0707182"}
 ```
-```json
+```text
 Get all bills: 
 2023-01-25T00:15:11.956+03:00  INFO 23912 --- [nio-8080-exec-6] c.e.o.s.implementation.BillService       : All bills: [ {
 "id" : 1000,
@@ -271,7 +271,7 @@ Get all bills:
 "createdDate" : "2023-01-25 00:14:53"
 } ] 
 ```
-```json
+```text
 Get bills created in June:
 2023-01-25T00:15:21.448+03:00 DEBUG 23912 --- [nio-8080-exec-7] c.e.orderhw.controller.BillController    : /bill/api/getJune request received
 2023-01-25T00:15:21.448+03:00 TRACE 23912 --- [nio-8080-exec-7] c.e.o.s.implementation.CustomerService   : Getting customers created in June
@@ -341,13 +341,13 @@ Get bills created in June:
 "createdDate" : "2023-10-08 10:09:54"
 } ]
 ```
-```json
+```text
 Total value of bills of customers created in June:
 2023-01-25T00:15:29.023+03:00 DEBUG 23912 --- [nio-8080-exec-9] c.e.orderhw.controller.BillController    : /bill/api/getJune request received
 2023-01-25T00:15:29.023+03:00 TRACE 23912 --- [nio-8080-exec-9] c.e.o.s.implementation.CustomerService   : Getting customers created in June
 2023-01-25T00:15:29.036+03:00  INFO 23912 --- [nio-8080-exec-9] c.e.o.s.implementation.BillService       : Total value of bills of customers created in June: 931000
 ```
-```json
+```text
 Get all bills where the cost is above 1500:
 2023-01-25T00:15:35.122+03:00 DEBUG 23912 --- [io-8080-exec-10] c.e.orderhw.controller.BillController    : /bill/api/above request received
 2023-01-25T00:15:35.135+03:00  INFO 23912 --- [io-8080-exec-10] c.e.o.s.implementation.BillService       : All bills where the cost is above 150000: [ {
@@ -456,7 +456,7 @@ Get all bills where the cost is above 1500:
 "createdDate" : "2023-01-25 00:14:53"
 } ]
 ```
-```json
+```text
 Get industries whose average bill was below 750 in June:
 2023-01-25T00:15:40.457+03:00 DEBUG 23912 --- [nio-8080-exec-1] c.e.orderhw.controller.BillController    : /bill/api/getAverageAbove request received
 2023-01-25T00:15:46.064+03:00  INFO 23912 --- [nio-8080-exec-2] c.e.o.s.implementation.BillService       : All industries whose average bill was below 75000 in June: [ "FASHION", "TECH" ]
