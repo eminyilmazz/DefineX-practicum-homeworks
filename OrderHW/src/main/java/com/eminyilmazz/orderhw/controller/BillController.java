@@ -55,7 +55,7 @@ public class BillController {
     @GetMapping(value = "/getIndustriesBelow")
     public ResponseEntity<List<Industry>> getIndustriesBelow(@RequestParam(required = false) Optional<Double> amount) {
         logger.debug("/bill/api/getIndustriesBelow request received");
-        Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 750.0) * 100));
+        Long longAmount = (long) (amount.orElse(750.0) * 100);
         return ResponseEntity.ok(billService.getIndustriesBelow(longAmount));
     }
 
