@@ -1,10 +1,14 @@
 package com.eminyilmazz.orderhw.service.implementation;
 
 import com.eminyilmazz.orderhw.entity.Bill;
+import com.eminyilmazz.orderhw.entity.Company;
 import com.eminyilmazz.orderhw.entity.Customer;
 import com.eminyilmazz.orderhw.entity.dto.BillDto;
+import com.eminyilmazz.orderhw.entity.dto.OrderDto;
 import com.eminyilmazz.orderhw.enums.Industry;
 import com.eminyilmazz.orderhw.repository.BillRepository;
+import com.eminyilmazz.orderhw.repository.CompanyRepository;
+import com.eminyilmazz.orderhw.repository.CustomerRepository;
 import com.eminyilmazz.orderhw.service.IBillService;
 import com.eminyilmazz.orderhw.service.ICustomerService;
 import com.eminyilmazz.orderhw.util.mapper.BillMapper;
@@ -15,10 +19,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static com.eminyilmazz.orderhw.util.UtilityService.formatCurrency;
+import static com.eminyilmazz.orderhw.util.mapper.BillMapper.toDto;
 
 @Service
 public class BillService implements IBillService {
@@ -29,6 +35,10 @@ public class BillService implements IBillService {
     ICustomerService customerService;
     @Autowired
     ObjectMapper objectMapper;
+    @Autowired
+    CompanyRepository companyRepository;
+    @Autowired
+    private CustomerRepository customerRepository;
 
     @Override
     public List<BillDto> getAll() {
@@ -97,5 +107,16 @@ public class BillService implements IBillService {
             logger.error("Error trying to write the output in BillService.getIndustriesBelow({})", amount);
         }
         return industries;
+    }
+
+    @Override
+    public BillDto order(OrderDto order) throws JsonProcessingException {
+        logger.trace("Creating bill for order: {}", objectMapper.writeValueAsString(order));
+        Company company = companyRepository.findById(Long.parseLong(order.getCompanyId())).orElseThrow(IllegalArgumentException::new);
+        Customer customer = customerRepository.findById(Long.parseLong(order.getCustomerId())).orElseThrow(IllegalArgumentException::new);
+        Bill bill = Bill.builder().company(company).customer(customer).cost(Long.parseLong(String.valueOf(order.getCost() * 100))).createdDate(LocalDateTime.now()).build();
+        BillDto billDto = toDto(billRepository.saveAndFlush(bill));
+        logger.debug("Bill saved to the database: {}", objectMapper.writeValueAsString(bill));
+        return billDto;
     }
 }

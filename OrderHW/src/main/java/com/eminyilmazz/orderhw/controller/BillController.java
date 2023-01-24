@@ -1,16 +1,15 @@
 package com.eminyilmazz.orderhw.controller;
 
 import com.eminyilmazz.orderhw.entity.dto.BillDto;
+import com.eminyilmazz.orderhw.entity.dto.OrderDto;
 import com.eminyilmazz.orderhw.enums.Industry;
 import com.eminyilmazz.orderhw.service.IBillService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -41,19 +40,32 @@ public class BillController {
 
     @GetMapping(value = "/above")
     public ResponseEntity<List<BillDto>> getAllBillsAbove(@RequestParam(required = false) Optional<Double> amount) {
+        logger.debug("/bill/api/above request received");
         Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 1500.0) * 100));
         return ResponseEntity.ok(billService.getAllBillsAbove(longAmount));
     }
 
     @GetMapping(value = "/averageAbove")
     public ResponseEntity<String> getAverageAbove(@RequestParam(required = false) Optional<Double> amount) {
+        logger.debug("/bill/api/getAverageAbove request received");
         Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 1500.0) * 100));
         return ResponseEntity.ok(billService.getAverageAbove(longAmount));
     }
 
     @GetMapping(value = "/getIndustriesBelow")
     public ResponseEntity<List<Industry>> getIndustriesBelow(@RequestParam(required = false) Optional<Double> amount) {
+        logger.debug("/bill/api/getIndustriesBelow request received");
         Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 750.0) * 100));
         return ResponseEntity.ok(billService.getIndustriesBelow(longAmount));
+    }
+
+    @PostMapping(value = "/order")
+    public ResponseEntity<?> order(@RequestBody OrderDto order) {
+        logger.debug("/bill/api/order request received");
+        try {
+            return ResponseEntity.ok(billService.order(order));
+        } catch (JsonProcessingException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 }
