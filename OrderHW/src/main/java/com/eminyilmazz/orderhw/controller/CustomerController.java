@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/customer/api")
@@ -38,8 +39,8 @@ public class CustomerController {
     }
 
     @GetMapping(value = "/getWithBelow")
-    public ResponseEntity<List<String>> getCustomerNamesWithBelow(@RequestParam(required = false) Optional<Double> amount) {
-        Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 500.0) * 100));
+    public ResponseEntity<Set<String>> getCustomerNamesWithBelow(@RequestParam(required = false) Optional<Double> amount) {
+        Long longAmount = (long) (amount.orElse(500.0) * 100);
         return ResponseEntity.ok(customerService.getCustomerNamesWithBelow(longAmount));
     }
 }

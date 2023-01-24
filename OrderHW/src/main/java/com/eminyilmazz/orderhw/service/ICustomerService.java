@@ -5,6 +5,7 @@ import com.eminyilmazz.orderhw.entity.dto.CustomerDto;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Set;
 
 public interface ICustomerService {
     List<CustomerDto> getAllCustomers();
@@ -15,5 +16,5 @@ public interface ICustomerService {
 
     ResponseEntity<?> addCustomer(CustomerDto customerDto);
 
-    List<String> getCustomerNamesWithBelow(Long amount);
+    Set<String> getCustomerNamesWithBelow(Long amount);
 }

@@ -9,12 +9,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface BillRepository extends JpaRepository<Bill, Long> {
     List<Bill> findBillsByCustomer(Customer customer);
     List<Bill> findBillsByCostGreaterThanEqual(Long cost);
-    List<Bill> findBillsByCostLessThanEqual(Long cost);
+    @Query("Select b.customer.fullName from Bill b where b.cost <= :cost")
+    Set<String> findBillsByCostLessThanEqual(@Param("cost") Long cost);
     @Query("SELECT b.company.industry from Bill b where b.cost <= :amount")
     List<Industry> findCompanyIndustryWhereCostLessThanEqual(@Param(value = "amount") Long amount);
 }

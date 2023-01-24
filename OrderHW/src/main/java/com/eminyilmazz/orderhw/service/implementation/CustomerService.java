@@ -1,6 +1,5 @@
 package com.eminyilmazz.orderhw.service.implementation;
 
-import com.eminyilmazz.orderhw.entity.Bill;
 import com.eminyilmazz.orderhw.entity.Customer;
 import com.eminyilmazz.orderhw.entity.dto.CustomerDto;
 import com.eminyilmazz.orderhw.repository.BillRepository;
@@ -15,12 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.eminyilmazz.orderhw.util.mapper.CustomerMapper.toDto;
 import static com.eminyilmazz.orderhw.util.mapper.CustomerMapper.toEntity;
 
 @Service
@@ -73,12 +71,8 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public List<String> getCustomerNamesWithBelow(Long amount) {
-        List<String> nameList = billRepository.findBillsByCostLessThanEqual(amount)
-                .stream()
-                .map(b -> toDto(b.getCustomer()))
-                .map(CustomerDto::getFullName)
-                .collect(Collectors.toList());
+    public Set<String> getCustomerNamesWithBelow(Long amount) {
+        Set<String> nameList = billRepository.findBillsByCostLessThanEqual(amount);
         try {
             logger.info("Customer names who have bills where the cost is below {}: {}", amount, objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(nameList));
         } catch (JsonProcessingException e) {

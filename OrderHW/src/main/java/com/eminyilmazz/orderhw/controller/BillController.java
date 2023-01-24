@@ -41,14 +41,14 @@ public class BillController {
     @GetMapping(value = "/above")
     public ResponseEntity<List<BillDto>> getAllBillsAbove(@RequestParam(required = false) Optional<Double> amount) {
         logger.debug("/bill/api/above request received");
-        Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 1500.0) * 100));
+        Long longAmount = (long) (amount.orElse(1500.0) * 100);
         return ResponseEntity.ok(billService.getAllBillsAbove(longAmount));
     }
 
     @GetMapping(value = "/averageAbove")
     public ResponseEntity<String> getAverageAbove(@RequestParam(required = false) Optional<Double> amount) {
         logger.debug("/bill/api/getAverageAbove request received");
-        Long longAmount = Long.parseLong(String.valueOf(amount.orElseGet(() -> 1500.0) * 100));
+        Long longAmount = (long) (amount.orElse(1500.0) * 100);
         return ResponseEntity.ok(billService.getAverageAbove(longAmount));
     }
 
