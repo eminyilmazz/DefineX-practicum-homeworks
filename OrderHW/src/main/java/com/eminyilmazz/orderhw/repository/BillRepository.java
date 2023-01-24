@@ -17,6 +17,6 @@ public interface BillRepository extends JpaRepository<Bill, Long> {
     List<Bill> findBillsByCostGreaterThanEqual(Long cost);
     @Query("Select b.customer.fullName from Bill b where b.cost <= :cost")
     Set<String> findBillsByCostLessThanEqual(@Param("cost") Long cost);
-    @Query("SELECT b.company.industry from Bill b where b.cost <= :amount")
+    @Query(value = "SELECT c.industry FROM companies c WHERE c.id IN (SELECT b.company_id FROM bills b WHERE date_part('month', b.created_date) = 6 GROUP BY b.company_id HAVING AVG(b.cost) < :amount)", nativeQuery = true)
     Set<Industry> findCompanyIndustryWhereCostLessThanEqual(@Param(value = "amount") Long amount);
 }
