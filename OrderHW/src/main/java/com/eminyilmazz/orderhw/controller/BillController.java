@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/bill/api")
@@ -53,7 +54,7 @@ public class BillController {
     }
 
     @GetMapping(value = "/getIndustriesBelow")
-    public ResponseEntity<List<Industry>> getIndustriesBelow(@RequestParam(required = false) Optional<Double> amount) {
+    public ResponseEntity<Set<Industry>> getIndustriesBelow(@RequestParam(required = false) Optional<Double> amount) {
         logger.debug("/bill/api/getIndustriesBelow request received");
         Long longAmount = (long) (amount.orElse(750.0) * 100);
         return ResponseEntity.ok(billService.getIndustriesBelow(longAmount));

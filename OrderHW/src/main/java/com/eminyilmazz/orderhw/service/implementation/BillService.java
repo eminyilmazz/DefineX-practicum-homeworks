@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static com.eminyilmazz.orderhw.util.UtilityService.formatCurrency;
@@ -99,8 +100,8 @@ public class BillService implements IBillService {
     }
 
     @Override
-    public List<Industry> getIndustriesBelow(Long amount) {
-        List<Industry> industries = billRepository.findCompanyIndustryWhereCostLessThanEqual(amount);
+    public Set<Industry> getIndustriesBelow(Long amount) {
+        Set<Industry> industries = billRepository.findCompanyIndustryWhereCostLessThanEqual(amount);
         try {
             logger.info("All industries that there is at least one bill with cost less than {}: {}", amount, objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(industries));
         } catch (JsonProcessingException e) {

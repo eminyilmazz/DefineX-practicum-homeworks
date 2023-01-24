@@ -6,6 +6,7 @@ import com.eminyilmazz.orderhw.enums.Industry;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import java.util.List;
+import java.util.Set;
 
 public interface IBillService {
     List<BillDto> getAll();
@@ -13,6 +14,6 @@ public interface IBillService {
     String getTotalCountOfBillsByCustomerCreatedInJune();
     List<BillDto> getAllBillsAbove(Long amount);
     String getAverageAbove(Long amount);
-    List<Industry> getIndustriesBelow(Long amount);
+    Set<Industry> getIndustriesBelow(Long amount);
     BillDto order(OrderDto order) throws JsonProcessingException;
 }
