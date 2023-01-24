@@ -115,7 +115,7 @@ public class BillService implements IBillService {
         logger.trace("Creating bill for order: {}", objectMapper.writeValueAsString(order));
         Company company = companyRepository.findById(Long.parseLong(order.getCompanyId())).orElseThrow(IllegalArgumentException::new);
         Customer customer = customerRepository.findById(Long.parseLong(order.getCustomerId())).orElseThrow(IllegalArgumentException::new);
-        Bill bill = Bill.builder().company(company).customer(customer).cost(Long.parseLong(String.valueOf(order.getCost() * 100))).createdDate(LocalDateTime.now()).build();
+        Bill bill = Bill.builder().company(company).customer(customer).cost((long)(order.getCost() * 100)).createdDate(LocalDateTime.now()).build();
         BillDto billDto = toDto(billRepository.saveAndFlush(bill));
         logger.debug("Bill saved to the database: {}", objectMapper.writeValueAsString(bill));
         return billDto;

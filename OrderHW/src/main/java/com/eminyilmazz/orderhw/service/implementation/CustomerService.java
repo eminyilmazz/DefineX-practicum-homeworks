@@ -74,7 +74,7 @@ public class CustomerService implements ICustomerService {
     public Set<String> getCustomerNamesWithBelow(Long amount) {
         Set<String> nameList = billRepository.findBillsByCostLessThanEqual(amount);
         try {
-            logger.info("Customer names who have bills where the cost is below {}: {}", amount, objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(nameList));
+            logger.info("Customer names who have bills where the cost is below {}: {}", amount, objectMapper.writeValueAsString(nameList));
         } catch (JsonProcessingException e) {
             logger.error("Error trying to write the output in CustomerService.getCustomerNamesWithBelow({})", amount);
         }
