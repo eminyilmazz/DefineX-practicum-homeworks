@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public class UtilityService {
     public static String formatCurrency(Long l) {
-        String amount = String.valueOf(Double.valueOf(l));
+        String amount = String.valueOf(Double.valueOf(l) / 100);
         Locale locale = new Locale("en", "US");
         Currency currency = Currency.getInstance(locale);
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(locale);

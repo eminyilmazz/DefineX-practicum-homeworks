@@ -95,7 +95,7 @@ public class BillService implements IBillService {
                 .average()
                 .orElse(0.0);
         logger.info("Average value of bills: {}", average);
-        return formatCurrency(Long.valueOf(String.valueOf(average)));
+        return formatCurrency((long) average);
     }
 
     @Override
