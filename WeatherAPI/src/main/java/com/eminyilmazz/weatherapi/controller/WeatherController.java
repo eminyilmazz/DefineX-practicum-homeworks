@@ -1,8 +1,10 @@
 package com.eminyilmazz.weatherapi.controller;
 
+import com.eminyilmazz.weatherapi.entity.ForecastRequest;
 import com.eminyilmazz.weatherapi.entity.WeatherResponse;
 import com.eminyilmazz.weatherapi.service.IWeatherService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,8 +24,7 @@ public class WeatherController {
     }
 
     @GetMapping(value = "/forecast")
-    public ResponseEntity<WeatherResponse> getForecast(@RequestParam String city, @RequestParam(required = false) Optional<Integer> days) {
-        Integer dayCount = days.orElse(1);
-        return ResponseEntity.ok(weatherService.getForecast(city, dayCount));
+    public ResponseEntity<WeatherResponse> getForecast(@RequestBody @Valid ForecastRequest request) {
+        return ResponseEntity.ok(weatherService.getForecast(request.getCity(), request.getDays()));
     }
 }
