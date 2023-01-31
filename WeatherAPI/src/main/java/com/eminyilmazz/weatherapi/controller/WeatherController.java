@@ -4,6 +4,7 @@ import com.eminyilmazz.weatherapi.entity.CurrentRequest;
 import com.eminyilmazz.weatherapi.entity.ForecastRequest;
 import com.eminyilmazz.weatherapi.entity.WeatherResponse;
 import com.eminyilmazz.weatherapi.service.IWeatherService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -24,7 +25,8 @@ public class WeatherController {
     IWeatherService weatherService;
 
     @GetMapping(value = "/current")
-    public ResponseEntity<?> getCurrent(@RequestBody @Valid CurrentRequest request, BindingResult bindingResult) {
+    public ResponseEntity<?> getCurrent(@RequestBody @Valid CurrentRequest request, BindingResult bindingResult) throws JsonProcessingException {
+        logger.trace("/current request received: {}", objectMapper.writeValueAsString(request));
         if (bindingResult.hasErrors()) {
             logger.error("Request has invalid variables. {} : {} - {}", bindingResult.getFieldError().getField(), bindingResult.getFieldError().getRejectedValue(), bindingResult.getFieldError().getDefaultMessage());
             return ResponseEntity.badRequest().body(bindingResult.getFieldError().getDefaultMessage());
@@ -33,7 +35,8 @@ public class WeatherController {
     }
 
     @GetMapping(value = "/forecast")
-    public ResponseEntity<?> getForecast(@RequestBody @Valid ForecastRequest request, BindingResult bindingResult) {
+    public ResponseEntity<?> getForecast(@RequestBody @Valid ForecastRequest request, BindingResult bindingResult) throws JsonProcessingException {
+        logger.trace("/forecast request received: {}", objectMapper.writeValueAsString(request));
         if (bindingResult.hasErrors()) {
             logger.error("Request has invalid variables. {} : {} - {}", bindingResult.getFieldError().getField(), bindingResult.getFieldError().getRejectedValue(), bindingResult.getFieldError().getDefaultMessage());
             return ResponseEntity.badRequest().body(bindingResult.getFieldError().getDefaultMessage());
