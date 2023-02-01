@@ -42,6 +42,7 @@ public class WeatherService implements IWeatherService {
 
     private WeatherResponse sendWeatherRequest(String uri, HttpHeaders headers) throws JsonProcessingException {
         ResponseEntity<String> response = restTemplate.exchange(uri, HttpMethod.GET, new HttpEntity<>(headers), String.class);
+        checkResponse(response);
         try {
             WeatherResponse rsp = objectMapper.readValue(response.getBody(), WeatherResponse.class);
             return rsp;
