@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface CustomerRepository extends JpaRepository <Customer, Long> {
-    @Query(value = "SELECT * FROM customer WHERE EXTRACT(MONTH FROM created_date) = '06'", nativeQuery = true)
+    @Query(value = "SELECT c FROM Customer c WHERE MONTH(c.createdDate) = 6")
     List<Customer> getCustomersCreatedInJune();
 }
